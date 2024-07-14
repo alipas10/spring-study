@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.stereotype.Repository;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -40,6 +40,12 @@ public class ExceptionHandlerControllerAdvice {
 			map.put(propertyName, message);
 		});
 		return ResponseEntity.badRequest().body(map);
+	}
+	
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	@ResponseBody
+	public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+		return new ResponseEntity<>("Type request not correct!", HttpStatus.UNAUTHORIZED);
 	}
 	
 	@ExceptionHandler(BadCredentialsException.class)
