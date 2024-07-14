@@ -24,7 +24,9 @@ spring:
      registration:
       keycloak:
        client-id: login-app
-       authorization-grant-type: authorization_code 
+       client-secret: SXYLSV9ylLGwEdl9M7eICBSLwFqF3Cw6
+       client-authentication-method: client_secret_post
+       authorization-grant-type: authorization_code
        scope: openid
      provider:
       keycloak:
